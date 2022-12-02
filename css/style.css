@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 64px;
+    font-family: "Nerko One";
+}
+
+.main-container {
+    background-image: url("./../Designs/Version 1/Background/Full bg.png");
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+}
+
+.gamemode-container {
+    display: flex;
+    position: relative;
+    width: 250px;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 32px;
+}
+
+.title {
+    height: 90vh;
+    object-fit: contain;
+}
+
+.main-hud-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100vh;
+}
+
+.hud-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    width: 250px;
+    height: 300px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.6);
+}
+
+.hud-select-card {
+    background-color: white;
+    width: 250px;
+    height: 100px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.6);
+    font-size: 50px;
+    font-family: "Nerko One";
+    text-align: center;
+    outline: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    appearance: none;
+    background-image: url("./../Designs/Version\ 1/Icons/Select_Arrow.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.hud-select-card option {
+    font-size: 50px;
+    font-family: "Nerko One";
+    text-align: center;
+}
+
+.hud-images {
+    width: 100px;
+}
+
+.gamefield {
+    display: grid;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 64px;
+    padding: 8px;
+    user-select: none;
+}
+
+.field:hover {
+    filter: brightness(1.1);
+}

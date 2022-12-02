@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/easy.css">
+    <link rel="stylesheet" href="/css/medium.css">
+    <link rel="stylesheet" href="/css/hard.css">
+    <link rel="stylesheet" href="/fonts/fonts.css">
+    <script src="/js/script.js"></script>
+    <script src="/js/easy.js"></script>
+    <script src="/js/medium.js"></script>
+    <script src="/js/hard.js"></script>
+    
+    <title>Minesweeper</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body onload="renderEasyGamefield()">
+    <div class="main-container">
+        <div class="main-hud-container">
+            <div class="hud-card">
+                <img class="hud-images" src="./Designs/Version 1/Icons/Clock.png" alt="clock">
+                <span id="time">00:00</span>
+            </div>
+            <div class="hud-card">
+                <img class="hud-images" src="./Designs/Version 1/Icons/Flag.png" alt="flag">
+                <span id="flags">00</span>
+            </div>
+            <div class="gamemode-container">
+                <select class="hud-select-card" name="gamemodes" id="gamemodes">
+                    <option class="hud-select-card" value="easy">Easy</option>
+                    <option class="hud-select-card" value="medium">Medium</option>
+                    <option class="hud-select-card" value="hard">Hard</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="gamefield gamefield-easy" id="gamefield"></div>
+        <img class="title" src="./Designs/Version 1/Icons/Minesweeper title.png" alt="Minesweeper-headline">
+    </div>
+
+</body>
+
+</html>

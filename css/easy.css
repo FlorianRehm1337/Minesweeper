@@ -1,0 +1,18 @@
+.gamefield-easy {
+
+    grid:
+        [row1-start] "1 2 3 4 5 6 7 8"
+        [row2-start] "1 2 3 4 5 6 7 8"
+        [row3-start] "1 2 3 4 5 6 7 8"
+        [row4-start] "1 2 3 4 5 6 7 8"
+        [row5-start] "1 2 3 4 5 6 7 8"
+        [row6-start] "1 2 3 4 5 6 7 8"
+        [row7-start] "1 2 3 4 5 6 7 8"
+        [row8-start] "1 2 3 4 5 6 7 8";
+}
+
+.field-easy {
+    margin: 2px;
+    width: 94px;
+    cursor: pointer;
+}
