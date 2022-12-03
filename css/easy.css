@@ -16,3 +16,7 @@
     width: 94px;
     cursor: pointer;
 }
+
+.field-easy:hover{
+    filter: brightness(1.1);
+}

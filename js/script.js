@@ -3,12 +3,12 @@
 //hardmode = 480 Fields // 90 Mines
 
 function renderGamefield() {
-    let gamefield = document.getElementById('gamefield')
+    let gamefield = document.getElementById('gamefield');
+    gamefield.innerHTML = ``;
 
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < 480; i++) {
         gamefield.innerHTML += `
           <img class="field-easy" src="./Designs/Version 1/buttons/00_Default.png" alt="">
         `;
-
     }
 }

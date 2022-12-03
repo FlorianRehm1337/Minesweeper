@@ -24,3 +24,7 @@
     width: 45px;
     cursor: pointer;
 }
+
+.field-medium:hover{
+    filter: brightness(1.1);
+}
