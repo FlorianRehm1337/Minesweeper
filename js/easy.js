@@ -71,7 +71,7 @@ function checkFieldsAroundBomb(currentBomb) {
   let bottomRight = currentBomb + 9;
 
   if (!firstReveal) {
-    fieldsAroundFirstReveal.push(topLeft, top, topRight, left, right, bottomLeft, bottom, bottomRight)
+    fieldsAroundFirstReveal.push(topLeft, top, topRight, left, right, bottomLeft, bottom, bottomRight);
     setFirstReveal();
     return;
   }
@@ -109,7 +109,6 @@ function addNumbersAroundBomb(topLeft, top, topRight, left, right, bottomLeft, b
 
 
 function setFirstReveal() {
-  debugger;
   fieldsAroundFirstReveal.forEach(field => {
     if (gamefieldArray[field] != undefined) {
       gamefieldArray[field].firstReveal = true;
@@ -143,13 +142,95 @@ function revealField(i) {
     gamefieldArray[i].firstReveal = true;
     placeBombs();
     placeNumbers();
-    changeFieldSource();
+    //changeFieldSource();
     renderEasyGamefield();
+    revealOneField(i);
+
+  } else {
+    revealOneField(i);
   }
 }
 
+addEventListener('contextmenu', () =>{
+  
+})
 
-//test Function for Placement of objects
+
+function revealOneField(i) {
+  document.oncontextmenu = function(){
+    debugger;
+    if (!gamefieldArray[i].flag) {
+      gamefieldArray[i].flag = true
+    }
+
+    if (gamefieldArray[i].flag) {
+      gamefieldArray[i].flag = false
+    }
+    
+  }
+  if (!gamefieldArray[i].revealed) {
+    gamefieldArray[i].revealed = true;
+    switch (gamefieldArray[i].bomb) {
+      case true:
+        gamefieldArray[i].src = 'mine.png'
+        renderEasyGamefield();
+        return;
+    }
+    switch (gamefieldArray[i].flag) {
+      case true:
+        gamefieldArray[i].src = '01c_mine mark - flag.png'
+        renderEasyGamefield();
+        return;
+    }
+    switch (gamefieldArray[i].number){
+      case 0:
+        gamefieldArray[i].src = 'no number.png'
+        renderEasyGamefield();
+        return;
+      case 1:
+        gamefieldArray[i].src = '02_1.png'
+        renderEasyGamefield();
+        return;
+      case 2:
+        gamefieldArray[i].src = '02_2.png'
+        renderEasyGamefield();
+        return;
+      case 3:
+        gamefieldArray[i].src = '02_3.png'
+        renderEasyGamefield();
+        return;
+      case 4:
+        gamefieldArray[i].src = '02_4.png'
+        renderEasyGamefield();
+        return;
+      case 5:
+        gamefieldArray[i].src = '02_5.png'
+        renderEasyGamefield();
+        return;
+      case 6:
+        gamefieldArray[i].src = '02_6.png'
+        renderEasyGamefield();
+        return;
+      case 7:
+        gamefieldArray[i].src = '02_7.png'
+        renderEasyGamefield();
+        return;
+      case 8:
+        gamefieldArray[i].src = '02_8.png'
+        renderEasyGamefield();
+        return;
+    }
+  }
+
+}
+
+
+/* function changeFieldSource(){
+
+} */
+
+
+/* //test Function for Placement of objects
 function changeFieldSource() {
   numberfieldArray = gamefieldArray.filter(x => x.number != 0);
   noNumberfieldArray = gamefieldArray.filter(a => a.number == 0);
@@ -171,4 +252,4 @@ function changeFieldSource() {
       }
     }
   }
-}
+} */
