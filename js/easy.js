@@ -151,22 +151,18 @@ function revealField(i) {
   }
 }
 
-addEventListener('contextmenu', () =>{
-  
-})
-
 
 function revealOneField(i) {
-  document.oncontextmenu = function(){
+  document.oncontextmenu = function () {
     debugger;
-    if (!gamefieldArray[i].flag) {
-      gamefieldArray[i].flag = true
-    }
 
     if (gamefieldArray[i].flag) {
       gamefieldArray[i].flag = false
     }
-    
+    if (!gamefieldArray[i].flag) {
+      gamefieldArray[i].flag = true
+    }
+    return false;
   }
   if (!gamefieldArray[i].revealed) {
     gamefieldArray[i].revealed = true;
@@ -182,7 +178,7 @@ function revealOneField(i) {
         renderEasyGamefield();
         return;
     }
-    switch (gamefieldArray[i].number){
+    switch (gamefieldArray[i].number) {
       case 0:
         gamefieldArray[i].src = 'no number.png'
         renderEasyGamefield();
