@@ -15,8 +15,7 @@ let easymodeFlags = 10;
 
 
 function generateEasyGamefield() {
-  let flagNumber = document.getElementById('flags');
-  flagNumber.innerHTML = easymodeFlags;
+  renderFlagNumber();
   for (let i = 0; i < 64; i++) {
     gamefieldArray.push({
       "bomb": false,

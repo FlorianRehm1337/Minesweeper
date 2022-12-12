@@ -60,17 +60,26 @@ document.oncontextmenu = function (event) {
   let currentField = event.target.getAttribute('value');
   if (gamefieldArray[currentField] == undefined) {
     return false;
-  }
-  if (!gamefieldArray[currentField].flag) {
+  }else if (!gamefieldArray[currentField].flag && easymodeFlags != 0) {
     gamefieldArray[currentField].flag = true;
     console.log(gamefieldArray[currentField])
     gamefieldArray[currentField].src = '01_Mine mark.png';
     renderEasyGamefield();
+    easymodeFlags--;
+    renderFlagNumber();
   }else{
     gamefieldArray[currentField].flag = false;
     gamefieldArray[currentField].src = '00_Default.png';
     renderEasyGamefield();
     console.log('back change')
+    easymodeFlags++;
+    renderFlagNumber();
   }
   return false;
 } 
+
+
+function renderFlagNumber(){
+  let flagNumber = document.getElementById('flags');
+  flagNumber.innerHTML = easymodeFlags;
+}
