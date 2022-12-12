@@ -88,3 +88,8 @@ body {
     padding: 8px;
     user-select: none;
 }
+
+#time{
+    min-width: 210px;
+    text-align: center;
+}

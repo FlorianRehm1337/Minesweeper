@@ -5,12 +5,18 @@ let generatedNumbers = [];
 let blacklistedFieldsRight = [7, 15, 23, 31, 39, 47, 55, 63];
 let blacklistedFieldsLeft = [0, 8, 16, 24, 32, 40, 48, 56];
 let fieldsAroundFirstReveal = []
+let leftSideArray = [0, 8, 16, 24, 32, 40, 48, 56];
+let rightSideArray = [7, 15, 23, 31, 39, 47, 55, 63];
 let bombfieldArray;
 let numberfieldArray;
 let noNumberfieldArray;
 let firstReveal = false;
+let easymodeFlags = 10;
+
 
 function generateEasyGamefield() {
+  let flagNumber = document.getElementById('flags');
+  flagNumber.innerHTML = easymodeFlags;
   for (let i = 0; i < 64; i++) {
     gamefieldArray.push({
       "bomb": false,
@@ -38,7 +44,6 @@ function placeBombs() {
     }
     if (gamefieldArray[bombIndex].bomb === false && !gamefieldArray[bombIndex].firstReveal) {
       gamefieldArray[bombIndex].bomb = true;
-      //gamefieldArray[bombIndex].src = 'mine.png';
     }
   }
 }
@@ -49,9 +54,7 @@ function placeNumbers() {
   for (let i = 0; i < bombfieldArray.length; i++) {
     let currentBomb = bombfieldArray[i].id
     checkFieldsAroundBomb(currentBomb);
-
   }
-  //changeFieldSource()
 }
 
 
@@ -75,7 +78,6 @@ function checkFieldsAroundBomb(currentBomb) {
     setFirstReveal();
     return;
   }
-
   addNumbersAroundBomb(topLeft, top, topRight, left, right, bottomLeft, bottom, bottomRight, currentBomb);
 }
 
@@ -122,19 +124,18 @@ function getRandomNumber(min, max) {
 }
 
 
-function renderEasyGamefield() {
+async function renderEasyGamefield() {
   let gamefield = document.getElementById('gamefield');
   gamefield.innerHTML = ``;
-
   for (let i = 0; i < gamefieldArray.length; i++) {
     gamefield.innerHTML += `
-          <img onclick="revealField(${i})" class="field-easy" src="/Designs/Version 1/buttons/${gamefieldArray[i]['src']}">
+          <img onclick="revealField(${i})" class="field-easy" value="${i}" src="/Designs/Version 1/buttons/${gamefieldArray[i]['src']}">
         `;
   }
 }
 
 
-function revealField(i) {
+async function revealField(i) {
 
   if (!firstReveal) {
     checkFieldsAroundBomb(i)
@@ -142,110 +143,75 @@ function revealField(i) {
     gamefieldArray[i].firstReveal = true;
     placeBombs();
     placeNumbers();
-    //changeFieldSource();
+    await revealOneField(i);
     renderEasyGamefield();
-    revealOneField(i);
-
+    startCounter();
   } else {
-    revealOneField(i);
+    await revealOneField(i);
+    renderEasyGamefield();
   }
 }
 
 
-function revealOneField(i) {
-  document.oncontextmenu = function () {
-    debugger;
-
-    if (gamefieldArray[i].flag) {
-      gamefieldArray[i].flag = false
-    }
-    if (!gamefieldArray[i].flag) {
-      gamefieldArray[i].flag = true
-    }
-    return false;
-  }
-  if (!gamefieldArray[i].revealed) {
+async function revealOneField(i) {
+  if (checkUndefined(i) && !gamefieldArray[i].revealed) {
     gamefieldArray[i].revealed = true;
-    switch (gamefieldArray[i].bomb) {
-      case true:
-        gamefieldArray[i].src = 'mine.png'
-        renderEasyGamefield();
-        return;
+    if (gamefieldArray[i].number == 0 && !gamefieldArray[i].bomb && i > 7 && i < 56 && !leftSideArray.includes(i) && !rightSideArray.includes(i)) {
+      await revealFieldsAround(i)
     }
-    switch (gamefieldArray[i].flag) {
-      case true:
-        gamefieldArray[i].src = '01c_mine mark - flag.png'
-        renderEasyGamefield();
-        return;
+    if (gamefieldArray[i].bomb) {
+      gamefieldArray[i].src = 'mine.png'
     }
-    switch (gamefieldArray[i].number) {
-      case 0:
-        gamefieldArray[i].src = 'no number.png'
-        renderEasyGamefield();
-        return;
-      case 1:
-        gamefieldArray[i].src = '02_1.png'
-        renderEasyGamefield();
-        return;
-      case 2:
-        gamefieldArray[i].src = '02_2.png'
-        renderEasyGamefield();
-        return;
-      case 3:
-        gamefieldArray[i].src = '02_3.png'
-        renderEasyGamefield();
-        return;
-      case 4:
-        gamefieldArray[i].src = '02_4.png'
-        renderEasyGamefield();
-        return;
-      case 5:
-        gamefieldArray[i].src = '02_5.png'
-        renderEasyGamefield();
-        return;
-      case 6:
-        gamefieldArray[i].src = '02_6.png'
-        renderEasyGamefield();
-        return;
-      case 7:
-        gamefieldArray[i].src = '02_7.png'
-        renderEasyGamefield();
-        return;
-      case 8:
-        gamefieldArray[i].src = '02_8.png'
-        renderEasyGamefield();
-        return;
+    if (gamefieldArray[i].flag) {
+      gamefieldArray[i].src = '01c_mine mark - flag.png'
+    }
+    if (numberOfField(i) == 0 && !gamefieldArray[i].bomb) {
+      gamefieldArray[i].src = 'no number.png'
+    }
+    if (numberOfField(i) == 1) {
+      gamefieldArray[i].src = '02_1.png'
+    }
+    if (numberOfField(i) == 2) {
+      gamefieldArray[i].src = '02_2.png'
+    }
+    if (numberOfField(i) == 3) {
+      gamefieldArray[i].src = '02_3.png'
+    }
+    if (numberOfField(i) == 4) {
+      gamefieldArray[i].src = '02_4.png'
+    }
+    if (numberOfField(i) == 5) {
+      gamefieldArray[i].src = '02_5.png'
+    }
+    if (numberOfField(i) == 6) {
+      gamefieldArray[i].src = '02_6.png'
+    }
+    if (numberOfField(i) == 7) {
+      gamefieldArray[i].src = '02_7.png'
+    }
+    if (numberOfField(i) == 8) {
+      gamefieldArray[i].src = '02_8.png'
     }
   }
-
 }
 
 
-/* function changeFieldSource(){
+async function revealFieldsAround(i) {
+  await revealOneField(i - 9);
+  await revealOneField(i - 8);
+  await revealOneField(i - 7);
+  await revealOneField(i - 1);
+  await revealOneField(i + 1);
+  await revealOneField(i + 7);
+  await revealOneField(i + 8);
+  await revealOneField(i + 9);
+}
 
-} */
+function checkUndefined(i) {
+  return gamefieldArray[i] != undefined
+}
 
 
-/* //test Function for Placement of objects
-function changeFieldSource() {
-  numberfieldArray = gamefieldArray.filter(x => x.number != 0);
-  noNumberfieldArray = gamefieldArray.filter(a => a.number == 0);
-  console.log(noNumberfieldArray)
-
-  for (let index = 0; index < noNumberfieldArray.length; index++) {
-    if (noNumberfieldArray[index].number == 0 && noNumberfieldArray[index].bomb == false) {
-      noNumberfieldArray[index].src = 'no number.png';
-    }
-
-    if (noNumberfieldArray[index].number == 0 && noNumberfieldArray[index].bomb == true) {
-      noNumberfieldArray[index].src = 'mine.png';
-    }
-  }
-  for (let n = 0; n < numberfieldArray.length; n++) {
-    for (let i = 1; i < 8; i++) {
-      if (numberfieldArray[n].number == i) {
-        numberfieldArray[n].src = `02_${i}.png`;
-      }
-    }
-  }
-} */
+function numberOfField(i) {
+  return gamefieldArray[i].number
+}
