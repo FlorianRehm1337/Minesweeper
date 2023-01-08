@@ -18,6 +18,7 @@ let blacklistedFieldsLeft;
 let blacklistedFieldsRight;
 let blacklistedFieldsBottom;
 let rowLenght;
+let loading = false;
 
 
 function startCounter() {
@@ -97,36 +98,39 @@ function checkGameOver() {
   }
 }
 
-function getGamemode() {
+async function getGamemode() {
   clock = document.getElementById('time');
   selectedGamemode = document.getElementById('gamemodes').value;
   firstReveal = false;
+  gameover = false;
   gamefieldArray = [];
   bombfieldArray = [];
   generatedNumbers = [];
   resetClasses();
   resetCounter();
+  loading = true;
+  await setLoadingScreen();
   if (selectedGamemode == 'easy') {
     blacklistedFieldsLeft = easyBlacklistedFieldsLeft;
     blacklistedFieldsRight = easyBlacklistedFieldsRight;
     blacklistedFieldsTop = easyBlacklistedFieldsTop;
     blacklistedFieldsBottom = easyBlacklistedFieldsBottom;
     rowLenght = easyBlacklistedFieldsTop.length;
-    generateEasyGamefield();
+    await generateEasyGamefield();
   } else if (selectedGamemode == 'medium') {
     blacklistedFieldsLeft = mediumBlacklistedFieldsLeft;
     blacklistedFieldsRight = mediumBlacklistedFieldsRight;
     blacklistedFieldsTop = mediumBlacklistedFieldsTop;
     blacklistedFieldsBottom = mediumBlacklistedFieldsBottom;
     rowLenght = mediumBlacklistedFieldsTop.length;
-    generateMediumGamefield();
+    await generateMediumGamefield();
   } else if (selectedGamemode == 'hard') {
     blacklistedFieldsLeft = hardBlacklistedFieldsLeft;
     blacklistedFieldsRight = hardBlacklistedFieldsRight;
     blacklistedFieldsTop = hardBlacklistedFieldsTop;
     blacklistedFieldsBottom = hardBlacklistedFieldsBottom;
     rowLenght = hardBlacklistedFieldsTop.length;
-    generateHardGamefield();
+    await generateHardGamefield();
   }
 }
 
@@ -134,7 +138,7 @@ function resetClasses() {
   document.getElementById('gamefield').classList.remove('gamefield-easy', 'field-easy', 'gamefield-medium', 'field-medium', 'gamefield-hard', 'field-hard');
 }
 
-function renderGamefield() {
+async function renderGamefield() {
   let gamefield = document.getElementById('gamefield');
   gamefield.innerHTML = ``;
   for (let i = 0; i < gamefieldArray.length; i++) {
@@ -399,4 +403,13 @@ function playAgain() {
   }
   getGamemode();
 
+}
+
+async function setLoadingScreen(){
+  
+  if (loading) {
+    document.getElementById('loading-spinner').classList.remove('d-none');
+  }else{
+    document.getElementById('loading-spinner').classList.add('d-none');
+  }
 }

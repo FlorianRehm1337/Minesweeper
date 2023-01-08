@@ -5,7 +5,7 @@ let mediumBlacklistedFieldsBottom = [240, 241, 242, 243, 244, 245, 246, 247, 248
 let mediumModeFlags = 45;
 
 
-function generateMediumGamefield() {
+async function generateMediumGamefield() {
 
     document.getElementById('gamefield').classList.add('gamefield-medium');
     for (let i = 0; i < 256; i++) {
@@ -20,5 +20,7 @@ function generateMediumGamefield() {
     }
     flagAmount = mediumModeFlags;
     renderFlagNumber();
-    renderGamefield();
+    await renderGamefield();
+    loading = false;
+    setLoadingScreen();
 }

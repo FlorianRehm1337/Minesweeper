@@ -5,7 +5,7 @@ let easyBlacklistedFieldsBottom = [56, 57, 58, 59, 60, 61, 62, 63];
 let easymodeFlags = 10;
 
 
-function generateEasyGamefield() {
+async function generateEasyGamefield() {
 
   document.getElementById('gamefield').classList.add('gamefield-easy');
 
@@ -21,5 +21,7 @@ function generateEasyGamefield() {
   }
   flagAmount = easymodeFlags;
   renderFlagNumber();
-  renderGamefield();
+  await renderGamefield();
+  loading = false;
+  setLoadingScreen();
 }

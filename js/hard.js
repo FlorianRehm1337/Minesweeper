@@ -5,7 +5,7 @@ let hardBlacklistedFieldsBottom = [450, 451, 452, 453, 454, 455, 456, 457, 458, 
 let hardModeFlags = 90;
 
 
-function generateHardGamefield() {
+async function generateHardGamefield() {
 
     document.getElementById('gamefield').classList.add('gamefield-hard');
     for (let i = 0; i < 480; i++) {
@@ -21,5 +21,7 @@ function generateHardGamefield() {
     }
     flagAmount = hardModeFlags;
     renderFlagNumber();
-    renderGamefield();
+    await renderGamefield();
+    loading = false;
+    setLoadingScreen();
 }
