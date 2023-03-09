@@ -19,9 +19,23 @@ async function generateEasyGamefield() {
       "id": i
     })
   }
-  flagAmount = easymodeFlags;
+
+  switch (selectedGamemode) {
+    case 'easy':
+      flagAmount = easymodeFlags;
+      break;
+
+    case 'medium':
+      flagAmount = 20;
+      break;
+
+    case 'hard':
+      flagAmount = 30;
+      break;
+  }
   renderFlagNumber();
   await renderGamefield();
   loading = false;
   setLoadingScreen();
 }
+

@@ -22,7 +22,8 @@ body {
     cursor: pointer;
 }
 
-select:hover, option:hover{
+select:hover,
+option:hover {
     cursor: pointer;
 }
 
@@ -165,6 +166,7 @@ select:hover, option:hover{
     margin-left: auto;
     margin-right: auto;
     top: 50%;
+    transform: translateY(-50%);
     color: white;
     text-shadow: 5px 5px black;
 }
@@ -185,7 +187,6 @@ select:hover, option:hover{
     right: 0;
     top: 0;
     bottom: 0;
-
 }
 
 .lds-dual-ring {
@@ -212,11 +213,141 @@ select:hover, option:hover{
     border-color: #fff transparent #fff transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
+
+.title-mobile {
+    display: none;
+}
+
+.hud-card-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 @keyframes lds-dual-ring {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1450px) {
+    #time {
+        min-width: unset;
+    }
+
+    .main-container {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        gap: 56px;
+        padding: 0;
+    }
+
+    .main-hud-container {
+        height: unset;
+        gap: 24px;
+        flex-direction: unset;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .hud-card {
+        flex-direction: unset;
+        width: 200px;
+        max-width: 200px;
+        height: unset;
+        gap: 16px;
+        padding: 8px 16px;
+        font-size: 40px;
+    }
+
+    .hud-images {
+        width: 60px;
+    }
+
+    .title-mobile {
+        display: unset;
+        width: 42vw;
+        padding-top: 32px;
+    }
+
+    .gamefield {
+        text-align: center;
+        font-size: 42px;
+    }
+
+    .gamemode-container {
+        justify-content: center;
+        width: unset;
+    }
+
+    .hud-select-card {
+        width: 232px;
+        height: 75px;
+        font-size: 40px;
+        padding: 8px 16px;
+    }
+
+    .hud-select-card option {
+        font-size: 32px;
+        width: 232px;
+        max-width: 232px;
+    }
+
+    .play-again-btn {
+        justify-content: center;
+        gap: 16px;
+        width: 60vw;
+        height: 15vw;
+    }
+
+    .play-again-btn span {
+        font-size: 10vw;
+    }
+
+    .play-again-btn img {
+        width: 10vw;
+    }
+
+    .hud-card-wrapper{
+        display: flex;
+        flex-direction: unset;
+    }
+}
+
+@media (max-width: 750px) {
+    .main-hud-container {
+        flex-direction: column;
+    }
+
+    .hud-card{
+        width: unset;
+        font-size: 32px;
+    }
+
+    .hud-images{
+        width: 42px;
+    }
+
+    .hud-select-card{
+        font-size: 32px;
+    }
+
+    .gamefield{
+        margin: 0 16px;
+    }
+
+    .play-again-btn{
+        padding: 8px;
+    }
+}
+
+@media (max-width: 580px) {
+    .title-mobile {
+        width: 56vw;
     }
 }

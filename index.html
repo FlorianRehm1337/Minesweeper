@@ -25,14 +25,17 @@
             <div class="lds-dual-ring"></div>
         </div>
         <div class="main-hud-container">
-            <div class="hud-card">
-                <img class="hud-images" src="./Designs/Version 1/Icons/Clock.png" alt="clock">
-                <span id="time">00:00</span>
+            <div class="hud-card-wrapper">
+                <div class="hud-card">
+                    <img class="hud-images" src="./Designs/Version 1/Icons/Clock.png" alt="clock">
+                    <span id="time">00:00</span>
+                </div>
+                <div class="hud-card">
+                    <img class="hud-images" src="./Designs/Version 1/Icons/Flag.png" alt="flag">
+                    <span id="flags">00</span>
+                </div>
             </div>
-            <div class="hud-card">
-                <img class="hud-images" src="./Designs/Version 1/Icons/Flag.png" alt="flag">
-                <span id="flags">00</span>
-            </div>
+
             <div class="gamemode-container">
                 <select onchange="getGamemode()" class="hud-select-card" name="gamemodes" id="gamemodes">
                     <option value="" disabled selected>Mode</option>
@@ -45,6 +48,9 @@
 
         <div class="gamefield" id="gamefield">Please select your Gamemode!</div>
         <img class="title" src="./Designs/Version 1/Icons/Minesweeper title.png" alt="Minesweeper-headline">
+        <img class="title-mobile" src="./Designs/Version 1/Icons/Minesweeper title horizontal.png"
+            alt="Minesweeper-headline">
+
 
         <div id="winner-screen" class="end-screen d-none">
             <img class="overlay-img" src="./Designs/Version 1/WIN-G.OVER/Confeti.png" alt="confetti-img">

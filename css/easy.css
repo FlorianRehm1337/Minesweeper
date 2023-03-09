@@ -1,5 +1,4 @@
 .gamefield-easy {
-
     grid:
         [row1-start] "1 2 3 4 5 6 7 8"
         [row2-start] "1 2 3 4 5 6 7 8"
@@ -17,6 +16,34 @@
     cursor: pointer;
 }
 
-.field-easy:hover{
+.field-easy:hover {
     filter: brightness(1.1);
+}
+
+@media (max-width: 1450px) {
+    .field-easy {
+        width: 5vw;
+    }
+}
+
+@media (max-width: 1000px) {
+    .field-easy {
+        width: 7vw;
+    }
+}
+
+@media (max-width: 750px) {
+    .main-container {
+        gap: 32px;
+    }
+
+    .field-easy {
+        width: 8vw;
+    }
+}
+
+@media (max-width: 580px) {
+    .field-easy {
+        width: 10vw;
+    }
 }

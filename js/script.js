@@ -10,7 +10,7 @@ let time;
 let gameover = false;
 let win = false;
 let firstReveal;
-let winCounter; //Number for win Condition
+let winCounter;
 let flagAmount = 0;
 let selectedGamemode;
 let blacklistedFieldsTop;
@@ -42,7 +42,6 @@ function timer() {
     ms, sec, min = 0;
   }
 
-  //Doing some string interpolation
   let seconds = sec < 10 ? `0` + sec : sec;
   let minute = min < 10 ? `0` + min : min;
 
@@ -50,7 +49,6 @@ function timer() {
   clock.innerHTML = timer;
 };
 
-//stop timer
 function resetCounter() {
   clock.innerHTML = '00:00'
   clearInterval(time)
@@ -101,6 +99,28 @@ function checkGameOver() {
 async function getGamemode() {
   clock = document.getElementById('time');
   selectedGamemode = document.getElementById('gamemodes').value;
+  resetGame();
+  loading = true;
+  await setLoadingScreen();
+  if (window.innerWidth < 1450) {
+    setEasyGamefield();
+    await generateEasyGamefield();
+  } else {
+    if (selectedGamemode == 'easy') {
+      setEasyGamefield();
+      await generateEasyGamefield();
+    } else if (selectedGamemode == 'medium') {
+      setMediumGamefield();
+      await generateMediumGamefield();
+    } else if (selectedGamemode == 'hard') {
+      setHardGamefield();
+      await generateHardGamefield();
+    }
+  }
+
+}
+
+function resetGame() {
   firstReveal = false;
   gameover = false;
   gamefieldArray = [];
@@ -108,30 +128,6 @@ async function getGamemode() {
   generatedNumbers = [];
   resetClasses();
   resetCounter();
-  loading = true;
-  await setLoadingScreen();
-  if (selectedGamemode == 'easy') {
-    blacklistedFieldsLeft = easyBlacklistedFieldsLeft;
-    blacklistedFieldsRight = easyBlacklistedFieldsRight;
-    blacklistedFieldsTop = easyBlacklistedFieldsTop;
-    blacklistedFieldsBottom = easyBlacklistedFieldsBottom;
-    rowLenght = easyBlacklistedFieldsTop.length;
-    await generateEasyGamefield();
-  } else if (selectedGamemode == 'medium') {
-    blacklistedFieldsLeft = mediumBlacklistedFieldsLeft;
-    blacklistedFieldsRight = mediumBlacklistedFieldsRight;
-    blacklistedFieldsTop = mediumBlacklistedFieldsTop;
-    blacklistedFieldsBottom = mediumBlacklistedFieldsBottom;
-    rowLenght = mediumBlacklistedFieldsTop.length;
-    await generateMediumGamefield();
-  } else if (selectedGamemode == 'hard') {
-    blacklistedFieldsLeft = hardBlacklistedFieldsLeft;
-    blacklistedFieldsRight = hardBlacklistedFieldsRight;
-    blacklistedFieldsTop = hardBlacklistedFieldsTop;
-    blacklistedFieldsBottom = hardBlacklistedFieldsBottom;
-    rowLenght = hardBlacklistedFieldsTop.length;
-    await generateHardGamefield();
-  }
 }
 
 function resetClasses() {
@@ -141,12 +137,22 @@ function resetClasses() {
 async function renderGamefield() {
   let gamefield = document.getElementById('gamefield');
   gamefield.innerHTML = ``;
-  for (let i = 0; i < gamefieldArray.length; i++) {
-    console.log('renderField')
-    gamefield.innerHTML += `
+  if (window.innerWidth < 1450) {
+    for (let i = 0; i < gamefieldArray.length; i++) {
+      console.log('renderField')
+      gamefield.innerHTML += `
+          <img id="field${i}" onclick="revealField(${i})" class="field-easy" value="${i}" src="/Designs/Version 1/buttons/00_Default.png">
+        `;
+    }
+  } else {
+    for (let i = 0; i < gamefieldArray.length; i++) {
+      console.log('renderField')
+      gamefield.innerHTML += `
           <img id="field${i}" onclick="revealField(${i})" class="field-${selectedGamemode}" value="${i}" src="/Designs/Version 1/buttons/00_Default.png">
         `;
+    }
   }
+
 }
 
 function placeBombs() {
@@ -235,6 +241,32 @@ function setFirstReveal() {
   })
 }
 
+function setEasyGamefield() {
+  blacklistedFieldsLeft = easyBlacklistedFieldsLeft;
+  blacklistedFieldsRight = easyBlacklistedFieldsRight;
+  blacklistedFieldsTop = easyBlacklistedFieldsTop;
+  blacklistedFieldsBottom = easyBlacklistedFieldsBottom;
+  rowLenght = easyBlacklistedFieldsTop.length;
+}
+
+
+function setMediumGamefield() {
+  blacklistedFieldsLeft = mediumBlacklistedFieldsLeft;
+  blacklistedFieldsRight = mediumBlacklistedFieldsRight;
+  blacklistedFieldsTop = mediumBlacklistedFieldsTop;
+  blacklistedFieldsBottom = mediumBlacklistedFieldsBottom;
+  rowLenght = mediumBlacklistedFieldsTop.length;
+}
+
+
+function setHardGamefield() {
+  blacklistedFieldsLeft = hardBlacklistedFieldsLeft;
+  blacklistedFieldsRight = hardBlacklistedFieldsRight;
+  blacklistedFieldsTop = hardBlacklistedFieldsTop;
+  blacklistedFieldsBottom = hardBlacklistedFieldsBottom;
+  rowLenght = hardBlacklistedFieldsTop.length;
+}
+
 async function createWinNumber() {
   winCounter = gamefieldArray.length - bombfieldArray.length;
 }
@@ -293,14 +325,14 @@ async function revealOneField(i) {
 }
 
 async function revealFieldsAround(i) {
-  await revealOneField(i - rowLenght + 1);  //oben links
-  await revealOneField(i - rowLenght); //oben
-  await revealOneField(i - rowLenght - 1);  //oben rechts
-  await revealOneField(i - 1);  //links
-  await revealOneField(i + 1);  //rechts
-  await revealOneField(i + rowLenght - 1);  //unten links
-  await revealOneField(i + rowLenght);  //unten
-  await revealOneField(i + rowLenght + 1);  //unten rechts
+  await revealOneField(i - rowLenght + 1);
+  await revealOneField(i - rowLenght);
+  await revealOneField(i - rowLenght - 1);
+  await revealOneField(i - 1);
+  await revealOneField(i + 1);
+  await revealOneField(i + rowLenght - 1);
+  await revealOneField(i + rowLenght);
+  await revealOneField(i + rowLenght + 1);
 }
 
 function checkUndefined(i) {
@@ -339,7 +371,6 @@ function checkFieldIsMiddle(i) {
 
 async function revealFieldsInCorner(i) {
 
-  //topLeftCorner
   if (i == 0) {
     revealOneField(i + 1);
     revealOneField(i + rowLenght);
@@ -405,11 +436,10 @@ function playAgain() {
 
 }
 
-async function setLoadingScreen(){
-  
+async function setLoadingScreen() {
   if (loading) {
     document.getElementById('loading-spinner').classList.remove('d-none');
-  }else{
+  } else {
     document.getElementById('loading-spinner').classList.add('d-none');
   }
 }
