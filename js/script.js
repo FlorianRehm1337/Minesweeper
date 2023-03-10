@@ -101,7 +101,7 @@ async function getGamemode() {
   selectedGamemode = document.getElementById('gamemodes').value;
   resetGame();
   loading = true;
-  await setLoadingScreen();
+  setLoadingScreen();
   if (window.innerWidth < 1450) {
     setEasyGamefield();
     await generateEasyGamefield();
@@ -139,14 +139,12 @@ async function renderGamefield() {
   gamefield.innerHTML = ``;
   if (window.innerWidth < 1450) {
     for (let i = 0; i < gamefieldArray.length; i++) {
-      console.log('renderField')
       gamefield.innerHTML += `
           <img id="field${i}" onclick="revealField(${i})" class="field-easy" value="${i}" src="/Designs/Version 1/buttons/00_Default.png">
         `;
     }
   } else {
     for (let i = 0; i < gamefieldArray.length; i++) {
-      console.log('renderField')
       gamefield.innerHTML += `
           <img id="field${i}" onclick="revealField(${i})" class="field-${selectedGamemode}" value="${i}" src="/Designs/Version 1/buttons/00_Default.png">
         `;
@@ -436,10 +434,10 @@ function playAgain() {
 
 }
 
-async function setLoadingScreen() {
+function setLoadingScreen() {
   if (loading) {
-    document.getElementById('loading-spinner').classList.remove('d-none');
+    document.getElementById('loader-container').classList.remove('d-none');
   } else {
-    document.getElementById('loading-spinner').classList.add('d-none');
+    document.getElementById('loader-container').classList.add('d-none');
   }
 }

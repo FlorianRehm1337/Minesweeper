@@ -9,7 +9,6 @@ async function generateHardGamefield() {
 
     document.getElementById('gamefield').classList.add('gamefield-hard');
     for (let i = 0; i < 480; i++) {
-        console.log('generateField')
         gamefieldArray.push({
             "bomb": false,
             "flag": false,
